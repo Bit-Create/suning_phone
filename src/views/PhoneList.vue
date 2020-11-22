@@ -1,55 +1,27 @@
 <template>
   <div>
-    <Row :gutter="0" type="flex" justify="center">
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-    </Row>
-    <Row :gutter="0" type="flex" justify="center">
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-      <i-col >
-        <phone-card></phone-card>
-      </i-col>
-    </Row>
+    <row :gutter="1" type="flex" justify="center" style="margin-top: 14px" v-for="row in data">
+      <i-col v-for="item in row"><phone-card :item="item"></phone-card></i-col>
+    </row>
   </div>
 </template>
 
 <script>
 import PhoneCard from "@/components/PhoneCard";
+import {selectPhone} from "@/network/phone";
 export default {
 name: "PhoneList",
   components: {PhoneCard},
   data () {
     return {
-      span: 4
+      data: []
     }
+  },
+  created() {
+    this.data = selectPhone()
   }
 }
 </script>
 
 <style scoped>
-
 </style>

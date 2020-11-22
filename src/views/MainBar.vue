@@ -1,5 +1,5 @@
 <template>
-  <i-menu mode="horizontal" theme="light" active-name="store" style="margin-bottom: 12px">
+  <i-menu mode="horizontal" theme="light" active-name="store">
     <menu-item name="store" to="/store">
       <icon type="ios-phone-portrait"/>
       商品列表

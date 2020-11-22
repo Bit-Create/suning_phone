@@ -1,28 +1,63 @@
 <template>
   <div>
-    <card padding="10">
-      <img src="../assets/Login.jpg" alt="无图" />
-      <p><span>￥</span>49999</p>
-      <p>华为</p>
-      <p>评价</p>
-      <p>苏宁自营</p>
+    <card :padding=padding>
+      <img src='../assets/Login.jpg'/>
+      <span style="color: #FF6600">￥</span>
+      <b class="p_price">{{item.price}}</b>
+      <p class="p_title" :title="item.describe">{{item.title}}</p>
+
+      <p class="p_count"><b style="color: #2272C8">{{item.count}}</b> 评价</p>
+      <p>{{item.storeName}}</p>
     </card>
   </div>
 </template>
 
 <script>
 export default {
-name: "PhoneCard"
+  name: "PhoneCard",
+  props: {
+    item: Object
+  },
+  data () {
+    return {
+      padding: 10
+    }
+  }
 }
 </script>
 
 <style scoped>
  img{
-   width: 220px;
-   height: 220px;
+   width: 240px;
+   height: 240px;
  }
+ img:hover{
+   cursor: pointer;
+ }
+
  div{
    height: 480px;
-   width: 240px;
+   width: 260px;
  }
+
+ .p_price{
+   color: #FF6600;
+   font-size: 20px;
+   font-style: oblique;
+ }
+
+ .p_title:hover{
+   color: #FF6600;
+   cursor: pointer;
+ }
+
+ .p_count {
+   color: #BDBDBD;
+ }
+
+ p{
+   margin-top: 5px;
+   color: black;
+ }
+
 </style>
