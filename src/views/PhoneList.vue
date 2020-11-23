@@ -8,7 +8,7 @@
 
 <script>
 import PhoneCard from "@/components/PhoneCard";
-import {selectPhone} from "@/network/phone";
+import {selectPhonePage} from "@/network/phone";
 export default {
 name: "PhoneList",
   components: {PhoneCard},
@@ -18,7 +18,7 @@ name: "PhoneList",
     }
   },
   created() {
-    this.data = selectPhone()
+    this.data = selectPhonePage()
   }
 }
 </script>

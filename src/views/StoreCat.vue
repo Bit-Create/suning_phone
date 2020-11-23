@@ -5,18 +5,26 @@
         <Option :value="item" v-for="item in cityList">{{ item }}</Option>
       </Select>
     </span>
-    <span v-show="isShow"> 现在 <Button type="warning">登录</Button> ，您的商品将被永久保存，并可查看之前加入的商品</span>
+    <span v-show="isShow"> 现在 <Button type="warning">登录</Button> ，您的商品将被永久保存，并可查看之前加入的商品</span><br>
+    <cat-table :data="data"></cat-table>
   </div>
 </template>
 
 <script>
+import CatTable from "@/components/CatTable";
+import {selectUserCat} from "@/network/cat";
 export default {
   name: "StoreCat",
+  components: {CatTable},
   data () {
     return {
       cityList: ['武汉', '荆州', '宜昌', '天门'],
-      isShow: true
+      isShow: true,
+      data: []
     }
+  },
+  created() {
+    this.data = selectUserCat()
   }
 }
 </script>

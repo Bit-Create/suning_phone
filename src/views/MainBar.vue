@@ -1,8 +1,8 @@
 <template>
   <i-menu mode="horizontal" theme="light" active-name="store">
-    <menu-item name="store" to="/store">
+    <menu-item name="store" to="/phone">
       <icon type="ios-phone-portrait"/>
-      商品列表
+      手机
     </menu-item>
     <menu-item name="cat" to="/cat">
       <icon type="ios-cart-outline"/>

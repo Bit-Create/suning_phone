@@ -1,9 +1,9 @@
 <template>
   <div>
-    <card :padding=padding>
+    <card :padding=padding :bordered=borderShow>
       <img src='../assets/Login.jpg'/>
       <span style="color: #FF6600">￥</span>
-      <b class="p_price">{{item.price}}</b>
+      <b class="p_price">{{item.price | showPrice}}</b>
       <p class="p_title" :title="item.describe">{{item.title}}</p>
 
       <p class="p_count"><b style="color: #2272C8">{{item.count}}</b> 评价</p>
@@ -20,7 +20,13 @@ export default {
   },
   data () {
     return {
-      padding: 10
+      padding: 10,
+      borderShow: false
+    }
+  },
+  filters: {
+    showPrice(price) {
+      return price.toFixed(2)
     }
   }
 }
@@ -41,13 +47,13 @@ export default {
  }
 
  .p_price{
-   color: #FF6600;
+   color: #FF8000;
    font-size: 20px;
    font-style: oblique;
  }
 
  .p_title:hover{
-   color: #FF6600;
+   color: #FF8000;
    cursor: pointer;
  }
 

@@ -9,19 +9,19 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '',
-    redirect: '/store'
+    redirect: '/phone'
   },
   {
-    path: '/store',
+    path: '/phone',
     meta: {
-      title: '商品列表'
+      title: '手机 - 苏宁易购'
     },
     component: Phone
   },
   {
     path: '/cat',
     meta: {
-      title: '购物车'
+      title: '购物车 - 苏宁易购'
     },
     component: CAT
   }
