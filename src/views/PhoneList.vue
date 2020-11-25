@@ -8,7 +8,13 @@
 
 <!--    翻页组件-->
     <row justify="center" type="flex">
-      <page :total="page" show-elevator show-sizer></page>
+      <page :total="pageTotal"
+            show-elevator
+            show-sizer
+            @on-change="setPageNum"
+            @on-page-size-change="setPageSize"
+      >
+      </page>
     </row>
 
   </div>
@@ -23,7 +29,19 @@ name: "PhoneList",
   data () {
     return {
       data: [],
-      page: 100
+      pageTotal: 100,
+      pageNum: 1,
+      pageSize: 10,
+    }
+  },
+  methods: {
+    setPageNum(num) {
+      console.log(num);
+      this.pageNum = num
+    },
+    setPageSize(size) {
+      console.log(size);
+      this.pageSize = size
     }
   },
   created() {

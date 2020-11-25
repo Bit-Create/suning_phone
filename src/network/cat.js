@@ -1,3 +1,5 @@
+//查询购物车列表
+import {request} from "@/network/request";
 
 export function selectUserCat() {
   let cat = {
@@ -5,8 +7,8 @@ export function selectUserCat() {
     img: '../assets/Login.jpg', //图片
     price: 4999, //价格
     title: '华为/HUAWEI 畅享20 Pro 5G 8GB+128GB 深海蓝 超清全视屏 超广角AI三摄 移动联通电信5G全面屏全网通手机', //标题
-    size: '64GB',
-    model: '官方标配',  //型号
+    size: '64GB', //型号
+    model: '官方标配',  //配置
     count: 4, //数量
   }
   let cat2 = {
@@ -22,4 +24,15 @@ export function selectUserCat() {
   data.push(cat)
   data.push(cat2)
   return data
+}
+
+//向购物车添加商品
+export function addPhonetoCat(){
+  return request({
+    method: 'post',
+    url: '',
+    params: {
+
+    }
+  })
 }
