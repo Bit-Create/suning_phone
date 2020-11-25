@@ -25,7 +25,7 @@
       <template slot-scope="{ row }" slot="count">
         <div>
           <Button size="small" :disabled="row.count <= 1" @click="decrement(row)">-</Button>
-          <input type="text" v-model:value=row.count />
+          <input type="text" @change="changeCount(row)" v-model:value="row.count" />
           <Button size="small" :disabled="row.count >= 99" @click="increment(row)">+</Button>
           <p>最多可以买99件</p>
         </div>
@@ -34,20 +34,23 @@
         {{row.price * row.count | showPrice}}
       </template>
       <template slot-scope="{ row }" slot="operation">
-        <span @click="deleteRowCat(row.id)">删除</span>
+        <span class="delete-span" @click="deleteRowCat(row.id)">删除</span>
       </template>
     </Table>
+
     <div class="bar">
-      <div style="margin: 0px">
-        <checkbox style="margin-left: 12px" @on-change="selectAll">全选</checkbox>
+      <div>
+        <checkbox style="margin-left: 12px" @on-change="selectAll" v-model:value="checked">全选</checkbox>
         <span class="delete-span" @click="deleteSelectedData">删除选中商品</span>
       </div>
 
-      <div style="margin: 0px">
-        <span>已选商品{{selectedIndex.length}}件</span>
-        <span>总价（含运费）</span>
-        <span style="color: #FF6600">￥ </span>
-        <b class="p_price">{{total.toFixed(2)}}</b>
+      <div style="display: flex; height: 60px">
+        <span class="selected-span">已选商品 {{selectedIndex.length}} 件</span>
+        <span class="price-span">
+          <span>总价（含运费）：</span>
+          <span style="color: #FF6600">￥ </span>
+          <span class="p_price">{{total.toFixed(2)}}</span>
+        </span>
         <b class="text-button">去结算</b>
       </div>
     </div>
@@ -106,7 +109,8 @@ export default {
         }
       ],
       total: 0,
-      selectedIndex: []
+      selectedIndex: [],
+      checked: false
     }
   },
   props: {
@@ -114,13 +118,28 @@ export default {
   },
   methods: {
     decrement(row) {
-      row.count--
+      const item = this.catdata.find(item => item.id === row.id);
+      item.count--
+      this.selectedAllCancelData()
     },
     increment(row) {
-      row.count++
+      const item = this.catdata.find(item => item.id === row.id);
+      item.count++
+      this.selectedAllCancelData()
+    },
+    changeCount(row) {
+      const item = this.catdata.find(item => item.id === row.id);
+      if(row.count < 1 || row.count >99 ) {
+        this.$Message.error("输入的数值必须在0~99之间")
+        row.count = item.count
+      } else {
+        item.count = row.count
+        this.selectedAllCancelData()
+      }
     },
     deleteRowCat(id) {
       //根据id查找需要删除的商品
+      this.selectedAllCancelData()
       const index = this.catdata.findIndex(item => item.id === id);
       //在数据中删除该商品
       this.catdata.splice(index, 1)
@@ -133,6 +152,7 @@ export default {
     },
     // 取消选中某一项时触发
     selectedCancelData(selection, row) {
+      this.checked = false
       this.total -= row.price * row.count
       //移除此条数据的id
       for(let i = 0; i in this.selectedIndex; i++) {
@@ -143,6 +163,7 @@ export default {
     },
     //全选时触发
     selectedAllData(selection) {
+      this.checked = true
       //将商品总价重置为0
       //将下标数组清空
       this.selectedIndex = []
@@ -155,6 +176,7 @@ export default {
     },
     //取消全选时触发
     selectedAllCancelData(selection) {
+      this.checked = false
       this.total = 0
       this.selectedIndex = []
     },
@@ -165,12 +187,14 @@ export default {
       } else {
         for(let index of this.selectedIndex) {
           const i = this.catdata.findIndex(item => item.id === index)
+          this.total -= this.catdata[i].count * this.catdata[i].price
           this.catdata.splice(i, 1)
         }
         this.$Message.info("删除成功")
       }
     },
     selectAll(status) {
+      this.checked = true
       this.$refs.selection.selectAll(status)
     }
   },
@@ -196,7 +220,7 @@ export default {
     border: 0px;
   }
 
-  span:hover, .delete-span:hover{
+  .delete-span:hover{
     color: #2238c8;
     cursor: pointer;
   }
@@ -229,7 +253,17 @@ export default {
     font-size: 20px;
   }
 
-  .delete-span{
-    align-self: flex-start;
+  .selected-span{
+    padding-right: 12px;
+    border-right: 1px solid #BDBDBD;
+    margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    line-height: 36px;
+  }
+
+  .price-span{
+    line-height: 60px;
+    margin-right: 12px;
   }
 </style>

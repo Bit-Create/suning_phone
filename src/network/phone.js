@@ -1,5 +1,14 @@
+import {request} from "@/network/request";
 
 export function selectPhonePage() {
+  return request({
+    method: 'post',
+    url: '',
+    params: {
+
+    }
+  })
+
   let phone = {
     img: '../assets/Login.jpg',
     price: 4999,
