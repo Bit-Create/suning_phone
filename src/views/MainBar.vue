@@ -1,6 +1,6 @@
 <template>
-  <i-menu mode="horizontal" theme="light" active-name="store">
-    <menu-item name="store" to="/phone">
+  <i-menu mode="horizontal" theme="light" :active-name='activeName'>
+    <menu-item name="phone" to="/phone">
       <icon type="ios-phone-portrait"/>
       手机
     </menu-item>
@@ -16,6 +16,7 @@ export default {
 name: "MainBar",
   data () {
     return {
+      activeName: window.location.pathname.substring(1,)
     }
   }
 }

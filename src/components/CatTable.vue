@@ -1,7 +1,11 @@
 <template>
-  <Table :row-class-name="rowClassName" :columns="columns" :data="data" style="margin: 14px 0px"  disabled-hover>
+  <Table :columns="columns" :data="data" style="margin: 14px 0px"  disabled-hover>
     <template slot-scope="{ row }" slot="img">
       <img src="../assets/Login.jpg"/>
+    </template>
+    <template slot-scope="{ row }" slot="model">
+      <p>64GB</p>
+      <p>官方标配</p>
     </template>
     <template slot-scope="{ row }" slot="price">
       {{row.price | showPrice}}
@@ -31,7 +35,8 @@ export default {
       columns: [
         {
           type: 'selection',
-          width: 30,
+          title: '全选',
+          width: 40,
           align: "center"
         },
         {
@@ -50,7 +55,7 @@ export default {
         {
           title: '规格',
           align: "center",
-          key: 'model'
+          slot: 'model'
         },
         {
           title: '单价（元）',
@@ -110,20 +115,11 @@ export default {
     margin: 16px;
   }
 
-  .row-style{
-    background-color: #d25843;
-    color: #fff;
-  }
-
   input{
     width: 25px;
     text-align: center;
     margin: 0px 3px;
     border: 0px;
-  }
-
-  .title-style{
-    color: black;
   }
 
   span:hover{

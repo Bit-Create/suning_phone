@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <row :gutter="1" type="flex" justify="center" style="margin-top: 14px" v-for="row in data">
+  <div style="margin: 12px 10%">
+    <row :gutter="1" type="flex" justify="center" style="margin-top: 12px" v-for="row in data">
       <i-col v-for="item in row"><phone-card :item="item"></phone-card></i-col>
+    </row>
+    <row justify="center" type="flex">
+      <page :total="page" show-elevator></page>
     </row>
   </div>
 </template>
@@ -14,7 +17,8 @@ name: "PhoneList",
   components: {PhoneCard},
   data () {
     return {
-      data: []
+      data: [],
+      page: 100
     }
   },
   created() {

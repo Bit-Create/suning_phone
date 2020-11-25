@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const Phone = () => import('../views/PhoneList')
 const CAT = () => import('../views/StoreCat')
+const Detailed = () => import('../views/StoreDetailed')
 
 Vue.use(VueRouter)
 
@@ -14,16 +15,25 @@ const routes = [
   {
     path: '/phone',
     meta: {
-      title: '手机 - 苏宁易购'
+      title: '手机-苏宁易购',
+      name: 'phone'
     },
     component: Phone
   },
   {
     path: '/cat',
     meta: {
-      title: '购物车 - 苏宁易购'
+      title: '我的购物车-苏宁易购',
+      name: 'cat'
     },
     component: CAT
+  },
+  {
+    path: '/detailed',
+    mata: {
+      title: '',
+    },
+    component: Detailed
   }
 ]
 

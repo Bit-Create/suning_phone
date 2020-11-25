@@ -1,8 +1,8 @@
 <template>
   <div>
-    <card :padding=padding :bordered=borderShow>
+    <card :padding=padding :bordered=borderShow to="/detailed">
       <img src='../assets/Login.jpg'/>
-      <span style="color: #FF6600">￥</span>
+      <span style="color: #FF6600">￥ </span>
       <b class="p_price">{{item.price | showPrice}}</b>
       <p class="p_title" :title="item.describe">{{item.title}}</p>
 
@@ -49,7 +49,6 @@ export default {
  .p_price{
    color: #FF8000;
    font-size: 20px;
-   font-style: oblique;
  }
 
  .p_title:hover{
