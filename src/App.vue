@@ -1,7 +1,9 @@
 <template>
   <div>
     <main-bar></main-bar>
-    <router-view></router-view>
+    <keep-alive exclude="StoreDetailed">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

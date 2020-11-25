@@ -27,14 +27,18 @@
 
         <div class="p_margin" ref="model">
           <span class="item-span">型号</span>
-          <model-text text="64GB"  :is-click=$store.state.models[0] :index=0></model-text>
-          <model-text text="128GB" :is-click=$store.state.models[1] :index=1></model-text>
-          <model-text text="256GB" :is-click=$store.state.models[2] :index=2></model-text>
+          <RadioGroup v-model="size" type="button">
+            <Radio label="8 + 64GB"></Radio>
+            <Radio label="8 + 128GB"></Radio>
+            <Radio label="16 + 256GB"></Radio>
+          </RadioGroup>
         </div>
 
         <div class="p_margin">
-          <span class="item-span">规格</span>
-          <model-text text="官方标配" :is-click=true></model-text>
+          <span class="item-span" >规格</span>
+          <RadioGroup v-model="model" type="button">
+            <Radio label="官方标配"></Radio>
+          </RadioGroup>
         </div>
 
         <div class="p_margin">
@@ -72,15 +76,15 @@
 
 <script>
 import TextBroder from "@/components/TextBroder";
-import ModelText from "@/components/ModelText";
 export default {
 name: "StoreDetailed",
-  components: {ModelText, TextBroder},
+  components: {TextBroder},
   data() {
     return {
       cityList: ['武汉', '荆州', '宜昌', '天门'],
       count: 1,
-      models: []
+      size: '8 + 64GB',
+      model: '官方标配'
     }
   },
   methods: {
