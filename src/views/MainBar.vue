@@ -1,5 +1,5 @@
 <template>
-  <i-menu mode="horizontal" theme="light" :active-name='activeName' :on-select="setActive">
+  <i-menu mode="horizontal" theme="light" :active-name='activeName'>
     <menu-item name="phone" to="/phone">
       <icon type="ios-phone-portrait"/>
       手机
@@ -17,12 +17,6 @@ name: "MainBar",
   data () {
     return {
       activeName: window.location.pathname.substring(1,)
-    }
-  },
-  methods: {
-    setActive(name) {
-      this.activeName =  window.location.pathname.substring(1,)
-      console.log(this.activeName);
     }
   }
 }
