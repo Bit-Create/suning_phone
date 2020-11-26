@@ -128,21 +128,27 @@ export default {
       const item = this.catdata.find(item => item.id === row.id);
       item.count--
       this.selectedAllCancelData()
+      this.changeCatList()
     },
     increment(row) {
       const item = this.catdata.find(item => item.id === row.id);
       item.count++
       this.selectedAllCancelData()
+      this.changeCatList()
     },
     changeCount(row) {
       const item = this.catdata.find(item => item.id === row.id);
       if(row.count < 1 || row.count >99 ) {
-        this.$Message.error("输入的数值必须在0~99之间")
+        this.$Message.error("输入的数值必须在1~99之间")
         row.count = item.count
       } else {
         item.count = row.count
         this.selectedAllCancelData()
+        this.changeCatList()
       }
+    },
+    changeCatList(){
+      setCookie("catList", JSON.stringify({data:this.catdata}))
     },
     deleteRowCat(id) {
       //根据id查找需要删除的商品
@@ -150,6 +156,7 @@ export default {
       const index = this.catdata.findIndex(item => item.id === id);
       //在数据中删除该商品
       this.catdata.splice(index, 1)
+      this.changeCatList()
     },
     //选中某一项时触发
     selectedData(selection, row) {

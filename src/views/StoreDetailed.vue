@@ -27,7 +27,7 @@
 
         <div class="p_margin" ref="model">
           <span class="item-span">型号</span>
-          <RadioGroup v-model="size" type="button">
+          <RadioGroup v-model="size" type="button" @on-change="setSize">
             <Radio label="8 + 64GB"></Radio>
             <Radio label="8 + 128GB"></Radio>
             <Radio label="16 + 256GB"></Radio>
@@ -44,7 +44,7 @@
         <div class="p_margin">
           <span class="item-span">数量</span>
           <Button size="small" :disabled="this.count <= 1" @click="decrement()">-</Button>
-          <input type="text" v-model:value=count />
+          <input type="text" v-model:value=count @change="changeCount"/>
           <Button size="small" :disabled="this.count >= 99" @click="increment()">+</Button>
           每人限购99件
           <div style="margin-left: 84px; margin-top: 12px">
@@ -93,23 +93,43 @@ name: "StoreDetailed",
   methods: {
     decrement() {
       this.count--
+      this.data.count  = this.count
+    },
+    setSize(){
+      this.data.size = this.size
+    },
+    changeCount() {
+        this.data.count = this.count
     },
     increment() {
       this.count++
-    },
-    setModels(index) {
-      return this.$store.state.models[index]
+      this.data.count  = this.count
     },
     addCat() {
       let catList = checkCookie("catList")
+      let flag = 1
       catList = JSON.parse(catList)
-      catList.data.push(this.data)
+      if (catList.data.length == 0) {
+        catList.data.push(this.data)
+      } else {
+        for(let item of catList.data) {
+          if (item.id == this.data.id && item.size == this.data.size) {
+            item.count++
+            flag = 0
+            break
+          }
+        }
+        if (flag) {
+          catList.data.push(this.data)
+        }
+      }
       setCookie('catList', JSON.stringify(catList))
       this.$Message.success("加入购物车成功")
     }
   },
   created() {
     selectPhoneDetailed(getCookie('id')).then(res => {
+      // console.log(res.data);
       this.data = res.data
       this.data.size = this.size
       this.data.model = this.model

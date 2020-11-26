@@ -8,6 +8,7 @@ export function setCookie(cname, cvalue) {
 export function getCookie(cname) {
   var name = cname + "=";
   var ca = document.cookie.split(';');
+  // console.log(ca);
   for(var i=0; i<ca.length; i++)
   {
     var c = ca[i].trim();

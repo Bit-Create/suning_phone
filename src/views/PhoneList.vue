@@ -51,6 +51,7 @@ export default {
     },
     requestData() {
       selectPhonePage(this.pageNum, this.pageSize).then(res => {
+        // console.log(res.data);
         this.data = []
         let col = []
         for (let index = 0; index < res.data.data.length; index++) {
