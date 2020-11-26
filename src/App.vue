@@ -1,7 +1,7 @@
 <template>
   <div>
     <main-bar></main-bar>
-    <keep-alive exclude="StoreDetailed">
+    <keep-alive include="PhoneList">
       <router-view></router-view>
     </keep-alive>
   </div>

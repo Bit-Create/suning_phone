@@ -2,17 +2,17 @@
   <div class="rowStyle">
     <Row :gutter="1">
       <i-col span="8">
-        <img src="../assets/1000865.jpg">
+        <img :src=data.img_src>
       </i-col>
 
       <i-col span="10" class-name="col-style">
-        <b style="font-size: 18px">华为/HUAWEI 畅享20 Pro 5G 8GB+128GB 深海蓝 超清全视屏 超广角AI三摄 移动联通电信5G全面屏全网通手机</b>
-        <p style="color: #FF6600; margin: 12px 0px">60倍变焦60倍变焦60倍变焦60倍变焦60倍变焦60倍变焦</p>
+        <b style="font-size: 18px">{{data.i_title}}</b>
+        <p style="color: #FF6600; margin: 12px 0px">{{data.title}}</p>
 
         <div class="p_margin">
           <span class="item-span">价格</span>
           <span style="color: #EF2724"> ￥ </span>
-          <b class="p_price">{{3000 | showPrice}}</b><br>
+          <b class="p_price">{{data.price + '.00'}}</b><br>
         </div>
 
         <div class="p_margin">
@@ -49,7 +49,7 @@
           每人限购99件
           <div style="margin-left: 84px; margin-top: 12px">
             <Button type="error" style="margin-right: 24px" size="large">立即购买</Button>
-            <Button type="warning" size="large">
+            <Button type="warning" size="large" @click="addCat">
               <icon type="ios-cart-outline"/>
               加入购物车
             </Button>
@@ -76,6 +76,7 @@
 
 <script>
 import TextBroder from "@/components/TextBroder";
+import {selectPhoneDetailed} from "@/network/phone";
 export default {
 name: "StoreDetailed",
   components: {TextBroder},
@@ -84,7 +85,8 @@ name: "StoreDetailed",
       cityList: ['武汉', '荆州', '宜昌', '天门'],
       count: 1,
       size: '8 + 64GB',
-      model: '官方标配'
+      model: '官方标配',
+      data: []
     }
   },
   methods: {
@@ -96,12 +98,27 @@ name: "StoreDetailed",
     },
     setModels(index) {
       return this.$store.state.models[index]
+    },
+    addCat() {
+      this.$Message.success("加入购物车成功")
     }
   },
-  filters: {
-    showPrice(price) {
-      return price.toFixed(2)
+  created() {
+    var id = 0
+    var ca = document.cookie.split(';')
+    console.log(ca);
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i].trim()
+      console.log(c);
+      if (c.indexOf('id=') == 0) {
+        id = c.substring(3, c.length)
+      }
     }
+    selectPhoneDetailed(id).then(res => {
+      this.data = res.data
+    }).catch(res => {
+      this.$Message.error("请求数据超时")
+    })
   }
 }
 </script>

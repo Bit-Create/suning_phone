@@ -1,15 +1,16 @@
 <template>
-  <div>
     <card :padding=padding :bordered=borderShow to="/detailed">
-      <img src='../assets/Login.jpg'/>
-      <span style="color: #FF6600">￥ </span>
-      <b class="p_price">{{item.price | showPrice}}</b>
-      <p class="p_title" :title="item.describe">{{item.title}}</p>
-
-      <p class="p_count"><b style="color: #2272C8">{{item.count}}</b> 评价</p>
-      <p>{{item.storeName}}</p>
+      <div @click="commitID">
+        <img :src='item.img_src'/>
+        <span>
+          <span style="color: #FF6600">￥ </span>
+          <b class="p_price">{{item.price | showPrice}}</b>
+        </span>
+        <p class="p_title" :title="item.title">{{item.i_title}}</p>
+        <p class="p_count"><b style="color: #2272C8">{{item.evaluation}}</b> 评价</p>
+        <p>苏宁自营</p>
+      </div>
     </card>
-  </div>
 </template>
 
 <script>
@@ -22,6 +23,14 @@ export default {
     return {
       padding: 10,
       borderShow: false
+    }
+  },
+  methods: {
+    commitID() {
+      let d = new Date();
+      d.setTime(d.getTime()+(2*24*60*60*1000))
+      let expires = "expires=" + d.toGMTString();
+      document.cookie = "id=" + this.item.id + ';' + expires + "; path=/"
     }
   },
   filters: {
@@ -42,7 +51,10 @@ export default {
  }
 
  div{
-   height: 480px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: 440px;
    width: 260px;
  }
 

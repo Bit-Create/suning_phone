@@ -12,7 +12,12 @@
         @on-select-all-cancel="selectedAllCancelData">
       <template slot-scope="{ row }" slot="img">
         <router-link to="/detailed">
-          <img src="../assets/Login.jpg"/>
+          <Poptip trigger="hover" placement="right">
+            <img src="../assets/Login.jpg" class="img-small"/>
+            <div slot="content">
+              <img src="../assets/Login.jpg" class="img-large"/>
+            </div>
+          </Poptip>
         </router-link>
       </template>
       <template slot-scope="{ row }" slot="model">
@@ -207,10 +212,15 @@ export default {
 </script>
 
 <style scoped>
-  img {
+  .img-small {
     width: 100px;
     height: 100px;
     margin: 16px;
+  }
+
+  .img-large {
+    width: 160px;
+    height: 160px;
   }
 
   input{
