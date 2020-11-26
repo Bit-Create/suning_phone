@@ -12,7 +12,7 @@
 
 <script>
 import CatTable from "@/components/CatTable";
-import {selectUserCat} from "@/network/cat";
+import {getCookie} from "@/js/cookie";
 export default {
   name: "StoreCat",
   components: {CatTable},
@@ -24,13 +24,8 @@ export default {
       price: 0
     }
   },
-  filters: {
-    showPrice(price) {
-      return price.toFixed(2)
-    }
-  },
   created() {
-    this.catdata = selectUserCat()
+    this.catdata = JSON.parse(getCookie('catList')).data
   }
 }
 </script>

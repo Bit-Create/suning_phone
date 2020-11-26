@@ -77,6 +77,7 @@
 <script>
 import TextBroder from "@/components/TextBroder";
 import {selectPhoneDetailed} from "@/network/phone";
+import {checkCookie, getCookie, setCookie} from "@/js/cookie";
 export default {
 name: "StoreDetailed",
   components: {TextBroder},
@@ -86,7 +87,7 @@ name: "StoreDetailed",
       count: 1,
       size: '8 + 64GB',
       model: '官方标配',
-      data: []
+      data: {}
     }
   },
   methods: {
@@ -100,22 +101,20 @@ name: "StoreDetailed",
       return this.$store.state.models[index]
     },
     addCat() {
+      let catList = checkCookie("catList")
+      catList = JSON.parse(catList)
+      catList.data.push(this.data)
+      setCookie('catList', JSON.stringify(catList))
       this.$Message.success("加入购物车成功")
     }
   },
   created() {
-    var id = 0
-    var ca = document.cookie.split(';')
-    console.log(ca);
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i].trim()
-      console.log(c);
-      if (c.indexOf('id=') == 0) {
-        id = c.substring(3, c.length)
-      }
-    }
-    selectPhoneDetailed(id).then(res => {
+    selectPhoneDetailed(getCookie('id')).then(res => {
       this.data = res.data
+      this.data.size = this.size
+      this.data.model = this.model
+      this.data.count = this.count
+      document.title = this.data.i_title
     }).catch(res => {
       this.$Message.error("请求数据超时")
     })

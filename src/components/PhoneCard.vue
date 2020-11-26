@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import {setCookie} from "@/js/cookie";
+
 export default {
   name: "PhoneCard",
   props: {
@@ -27,10 +29,7 @@ export default {
   },
   methods: {
     commitID() {
-      let d = new Date();
-      d.setTime(d.getTime()+(2*24*60*60*1000))
-      let expires = "expires=" + d.toGMTString();
-      document.cookie = "id=" + this.item.id + ';' + expires + "; path=/"
+      setCookie("id", this.item.id)
     }
   },
   filters: {

@@ -26,7 +26,7 @@
 import PhoneCard from "@/components/PhoneCard";
 import {selectPhonePage} from "@/network/phone";
 export default {
-name: "PhoneList",
+  name: "PhoneList",
   components: {PhoneCard},
   data () {
     return {
@@ -39,10 +39,12 @@ name: "PhoneList",
     }
   },
   methods: {
+    //当页码发生改变时，向数据库请求该页码的数据（点击页面）
     setPageNum(num) {
       this.pageNum = num
       this.requestData()
     },
+    //当页面商品显示数量改变时，向数据库重新请求数据（选择页面显示数量）
     setPageSize(size) {
       this.pageSize = size
       this.requestData()
@@ -65,6 +67,7 @@ name: "PhoneList",
       })
     }
   },
+  //创建组件时向服务器请求数据，第一次请求数据
   created() {
     this.requestData()
   }

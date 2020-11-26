@@ -13,9 +13,9 @@
       <template slot-scope="{ row }" slot="img">
         <router-link to="/detailed">
           <Poptip trigger="hover" placement="right">
-            <img src="../assets/Login.jpg" class="img-small"/>
+            <img :src="row.img_src" class="img-small" @click="commitID(row.id)"/>
             <div slot="content">
-              <img src="../assets/Login.jpg" class="img-large"/>
+              <img :src="row.img_src" class="img-large"/>
             </div>
           </Poptip>
         </router-link>
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import {setCookie} from "@/js/cookie";
+
 export default {
   name: "CatTable",
   data() {
@@ -201,6 +203,9 @@ export default {
     selectAll(status) {
       this.checked = true
       this.$refs.selection.selectAll(status)
+    },
+    commitID(id) {
+      setCookie('id', id)
     }
   },
   filters: {
