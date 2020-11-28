@@ -162,7 +162,7 @@ export default {
     selectedData(selection, row) {
       this.total += row.price * row.count
       //记录此条数据的id
-      this.selectedIndex.push(row.id)
+      this.selectedIndex.push({id:row.id, size:row.size})
     },
     // 取消选中某一项时触发
     selectedCancelData(selection, row) {
@@ -170,7 +170,7 @@ export default {
       this.total -= row.price * row.count
       //移除此条数据的id
       for(let i = 0; i in this.selectedIndex; i++) {
-        if (row.count === this.selectedIndex[i]) {
+        if (row.id === this.selectedIndex[i].id && row.size == this.selectedIndex[i].size) {
           this.selectedIndex.splice(i, 1)
         }
       }
@@ -185,7 +185,7 @@ export default {
       //重新对所有商品进行求和并将所有被选中的商品ID记录
       for(let item of this.catdata) {
         this.total += item.price * item.count
-        this.selectedIndex.push(item.id)
+        this.selectedIndex.push({id:item.id, size:item.size})
       }
     },
     //取消全选时触发
@@ -204,6 +204,7 @@ export default {
           this.total -= this.catdata[i].count * this.catdata[i].price
           this.catdata.splice(i, 1)
         }
+        this.changeCatList()
         this.$Message.info("删除成功")
       }
     },
