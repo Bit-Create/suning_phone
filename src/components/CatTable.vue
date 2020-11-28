@@ -125,19 +125,19 @@ export default {
   },
   methods: {
     decrement(row) {
-      const item = this.catdata.find(item => item.id === row.id);
+      const item = this.catdata.find(item => item.id === row.id && item.size === row.size);
       item.count--
       this.selectedAllCancelData()
       this.changeCatList()
     },
     increment(row) {
-      const item = this.catdata.find(item => item.id === row.id);
+      const item = this.catdata.find(item => item.id === row.id && item.size === row.size);
       item.count++
       this.selectedAllCancelData()
       this.changeCatList()
     },
     changeCount(row) {
-      const item = this.catdata.find(item => item.id === row.id);
+      const item = this.catdata.find(item => item.id === row.id && item.size === row.size);
       if(row.count < 1 || row.count >99 ) {
         this.$Message.error("输入的数值必须在1~99之间")
         row.count = item.count
@@ -200,7 +200,7 @@ export default {
         this.$Message.info("未选中要删除的项")
       } else {
         for(let index of this.selectedIndex) {
-          const i = this.catdata.findIndex(item => item.id === index)
+          const i = this.catdata.findIndex(item => item.id === index.id && item.size === index.size)
           this.total -= this.catdata[i].count * this.catdata[i].price
           this.catdata.splice(i, 1)
         }
