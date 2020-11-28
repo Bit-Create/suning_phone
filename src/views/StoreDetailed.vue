@@ -99,6 +99,10 @@ name: "StoreDetailed",
       this.data.size = this.size
     },
     changeCount() {
+      if(this.count < 1 || this.count > 99) {
+        this.$Message.error("请输入1-99之间的数")
+        this.count = 1
+      }
         this.data.count = this.count
     },
     increment() {
@@ -114,6 +118,10 @@ name: "StoreDetailed",
       } else {
         for(let item of catList.data) {
           if (item.id == this.data.id && item.size == this.data.size) {
+            if (item.count + this.data.count > 99) {
+              this.$Message.error("购物车里已有" + this.count + "件该商品， 无法将此数量的商品加入购物车")
+              return
+            }
             item.count++
             flag = 0
             break
